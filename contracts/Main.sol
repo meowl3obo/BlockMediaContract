@@ -50,7 +50,7 @@ contract VideoContract {
         videoInfo.Comments.push(Comment(nonce, msg.sender, timestamp, commentContent, commentReact));
     }
 
-    function donate() private {
+    function donate() public payable {
         videoInfo.TotalDonate += msg.value;
         videoInfo.Balance += msg.value;
     }
