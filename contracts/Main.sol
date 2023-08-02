@@ -20,6 +20,7 @@ contract VideoContract {
         string Name; // 影片名稱
         string Key; // hash key
         address Author; // 作者
+        string Describe;
         uint UploadTimestamp; // 上傳時間
         uint256 ViewCount; // 觀看次數
         uint256 TotalDonate; // 總贊助
@@ -35,12 +36,14 @@ contract VideoContract {
         string memory name,
         string memory key,
         address author,
+        string memory describe,
         uint timestamp
     ) {
         videoInfo.Author = author;
         videoInfo.Name = name;
         videoInfo.Key = key;
         videoInfo.UploadTimestamp = timestamp;
+        videoInfo.Describe = describe;
     }
 
     function getInfo() external view returns (Video memory) {
@@ -136,12 +139,14 @@ contract VideosContract {
     function upload(
         string memory name,
         string memory key,
+        string memory describe,
         uint timestamp
     ) public returns (address) {
         VideoContract newVideoContract = new VideoContract(
             name,
             key,
             msg.sender,
+            describe,
             timestamp
         );
         address newVideoContractAddress = address(newVideoContract);
