@@ -18,9 +18,9 @@ contract VideoContract {
 
     struct Video {
         string Name; // 影片名稱
-        string Key; // hash key
+        string Key; // ipfs hash key
         address Author; // 作者
-        string Describe;
+        string Describe; // 描述
         uint UploadTimestamp; // 上傳時間
         uint256 ViewCount; // 觀看次數
         uint256 TotalDonate; // 總贊助
@@ -89,39 +89,8 @@ contract VideoContract {
         }
     }
 
-    // function likeComment(uint floor) public {
-    //     address sender;
-    //     sender = msg.sender;
-    //     for (uint j = 0; j < videoInfo.Comments.length; j++) {
-    //         if (j == floor) {
-    //             videoInfo.Comments[j].React.Like.push(sender);
-    //             for (uint i = 0; i < videoInfo.Comments[j].React.Unlike.length; i++) {
-    //                 if (videoInfo.Comments[j].React.Unlike[i] == sender) {
-    //                     delete videoInfo.Comments[j].React.Unlike[i];
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
-
-    // function unlikeComment(uint floor) public {
-    //     address sender;
-    //     sender = msg.sender;
-    //     for (uint j = 0; j < videoInfo.Comments.length; j++) {
-    //         if (j == floor) {
-    //             videoInfo.Comments[j].React.Unlike.push(sender);
-    //             for (uint i = 0; i < videoInfo.Comments[j].React.Like.length; i++) {
-    //                 if (videoInfo.Comments[j].React.Like[i] == sender) {
-    //                     delete videoInfo.Comments[j].React.Like[i];
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
-
     function addComment(string memory commentContent, uint timestamp) public {
         nonce++;
-        // React memory commentReact;
         videoInfo.Comments.push(
             Comment(nonce, msg.sender, timestamp, commentContent)
         );
