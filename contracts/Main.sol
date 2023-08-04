@@ -53,22 +53,39 @@ contract VideoContract {
     function likeVideo() public {
         address sender;
         sender = msg.sender;
-        videoInfo.React.Like.push(sender);
-        for (uint i = 0; i < videoInfo.React.Unlike.length; i++) {
-            if (videoInfo.React.Unlike[i] == sender) {
-                delete videoInfo.React.Unlike[i];
+        bool liked = false;
+        for (uint i = 0; i < videoInfo.React.Like.length; i++) {
+            if (videoInfo.React.Like[i] == sender) {
+                liked = true;
             }
         }
+        if (!liked) {
+          for (uint i = 0; i < videoInfo.React.Unlike.length; i++) {
+              if (videoInfo.React.Unlike[i] == sender) {
+                  delete videoInfo.React.Unlike[i];
+              }
+          }
+          videoInfo.React.Like.push(sender);
+        }
+
     }
 
     function unlikeVideo() public {
         address sender;
         sender = msg.sender;
-        videoInfo.React.Unlike.push(sender);
-        for (uint i = 0; i < videoInfo.React.Like.length; i++) {
-            if (videoInfo.React.Like[i] == sender) {
-                delete videoInfo.React.Like[i];
+        bool unLiked = false;
+        for (uint i = 0; i < videoInfo.React.Unlike.length; i++) {
+            if (videoInfo.React.Unlike[i] == sender) {
+                unLiked = true;
             }
+        }
+        if (!unLiked) {
+          for (uint i = 0; i < videoInfo.React.Like.length; i++) {
+              if (videoInfo.React.Like[i] == sender) {
+                  delete videoInfo.React.Like[i];
+              }
+          }
+          videoInfo.React.Unlike.push(sender);
         }
     }
 
